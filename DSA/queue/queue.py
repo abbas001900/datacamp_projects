@@ -15,12 +15,12 @@ class Queue:
         new_node = Node(data)
         
         if not self.head:
-            self.head = self.tail = new_node
+            self.head = new_node
+            self.tail = new_node
             print(f"{self.head.data} has been added")
         else:
-            new_node.next = self.head
-            self.head = new_node
-            print(f"{self.head.data} has been added")
+            self.tail.next = new_node
+            self.tail = new_node
 
     # Creation d'une methode pour retirer un element de la queue
     def dequeue(self):
@@ -29,9 +29,10 @@ class Queue:
             return None
         else:
             dequeued_node = self.head
-            self.head = self.head.next
-            self.tail.next = None
+            self.head = dequeued_node.next
             dequeued_node.next = None
+            if self.head == None:
+                self.tail = None
             print(f"{dequeued_node.data} a ete retire de la queue")
             return dequeued_node.data
         
